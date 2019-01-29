@@ -11,11 +11,9 @@ import com.alibaba.jvm.sandbox.api.resource.ModuleEventWatcher;
 import metaq.producer.DbInfo;
 import metaq.producer.SqlDto;
 import metaq.producer.SqlProducer;
-import org.apache.commons.lang3.reflect.MethodUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.apache.commons.lang3.reflect.MethodUtils;
 import org.kohsuke.MetaInfServices;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import utils.TraceHelper;
 
 import javax.annotation.Resource;
@@ -26,18 +24,19 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Logger;
 
 
 /**
- * 基于JDBC的SQL日志
+ * 基于JDBC的SQL日志拦截
  *
  * @author  gannicus-yu
  */
 @MetaInfServices(Module.class)
-@Information(id = "mbappe-mysql-logger", version = "1.0", author = "gannicus-yu")
+@Information(id = "mbappe-mysql-sql-intercepter", version = "1.0", author = "gannicus-yu")
 public class JdbcLoggerModule implements Module, LoadCompleted {
 
-    private final Logger smLogger = LoggerFactory.getLogger("DEBUG-JDBC-LOGGER");
+    private final Logger logger = Logger.getLogger(JdbcLoggerModule.class.getName());
 
     @Resource
     private ModuleEventWatcher moduleEventWatcher;
@@ -85,14 +84,15 @@ public class JdbcLoggerModule implements Module, LoadCompleted {
                                 String buildsql = buildSql(originalSql, parametersList);
 
                                 String appNAME = System.getProperty("APPNAME");
-
                                 String env = System.getProperty("LABEL");
-//                               RuntimeException runtimeException = new RuntimeException("run is here");
-//                               runtimeException.printStackTrace();
+                                if (null == appNAME || null == env) {
+                                    logger.warning("APPNAME or LABEL is empty.");
+                                    return;
+                                }
                                 SqlDto sqlDto = new SqlDto(buildsql, originalSql, 0, appNAME, env, System.currentTimeMillis(), 1L, TraceHelper.getTrace(), dbInfo);
                                 SqlProducer.get().send(sqlDto);
                             } catch (IllegalAccessException e) {
-                                e.printStackTrace();
+                                logger.warning(e.getMessage());
                             }
 
                         }
@@ -125,7 +125,7 @@ public class JdbcLoggerModule implements Module, LoadCompleted {
         } catch (Throwable e) {
 
             command = sql;
-            // smLogger.error("PreparedStatement buildSql error: " + e.getMessage() + "----" + sqlParams.toString()+"---"+sql);
+            // logger.error("PreparedStatement buildSql error: " + e.getMessage() + "----" + sqlParams.toString()+"---"+sql);
         }
 
         // MbappeLogger.log("PreparedStatement buildSql end: " + command);

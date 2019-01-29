@@ -1,7 +1,6 @@
 package metaq.producer;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * 采集慢查询信息
@@ -34,7 +33,10 @@ public class SqlDto implements Serializable {
     
     //调用栈
     private String trace;
-    
+
+    public SqlDto() {
+
+    }
     
     public SqlDto(String sql, String originalSql, Integer appId,String appName, String env, Long createdTime, Long costedTime,String trace, DbInfo dbInfo) {
         super();
