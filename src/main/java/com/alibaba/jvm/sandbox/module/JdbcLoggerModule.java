@@ -14,6 +14,7 @@ import metaq.producer.SqlProducer;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
 import org.kohsuke.MetaInfServices;
+import utils.MyLogger;
 import utils.TraceHelper;
 
 import javax.annotation.Resource;
@@ -36,7 +37,7 @@ import java.util.logging.Logger;
 @Information(id = "mbappe-mysql-sql-intercepter", version = "1.0", author = "gannicus-yu")
 public class JdbcLoggerModule implements Module, LoadCompleted {
 
-    private final Logger logger = Logger.getLogger(JdbcLoggerModule.class.getName());
+    private static Logger logger = MyLogger.setLoggerHanlder(Logger.getLogger(JdbcLoggerModule.class.getName()));
 
     @Resource
     private ModuleEventWatcher moduleEventWatcher;
@@ -68,7 +69,6 @@ public class JdbcLoggerModule implements Module, LoadCompleted {
                     public void afterReturning(Advice advice) {
 
                         final String behaviorName = advice.getBehavior().getName();
-                        // PreparedStatement.fillSendPacket()
                         if ("fillSendPacket".equals(behaviorName)) {
                             byte[][] parms = (byte[][]) advice.getParameterArray()[0];
                             List<String> parametersList = new ArrayList<String>();
@@ -92,7 +92,7 @@ public class JdbcLoggerModule implements Module, LoadCompleted {
                                 SqlDto sqlDto = new SqlDto(buildsql, originalSql, 0, appNAME, env, System.currentTimeMillis(), 1L, TraceHelper.getTrace(), dbInfo);
                                 SqlProducer.get().send(sqlDto);
                             } catch (IllegalAccessException e) {
-                                logger.warning(e.getMessage());
+                                logger.severe(e.getMessage());
                             }
 
                         }
@@ -112,7 +112,6 @@ public class JdbcLoggerModule implements Module, LoadCompleted {
      */
     private String buildSql(String sql, List<String> sqlParams) {
 
-        // MbappeLogger.log("PreparedStatement buildSql start: " + sql);
         String command = null;
         String[] parms = null;
         try {
@@ -121,14 +120,12 @@ public class JdbcLoggerModule implements Module, LoadCompleted {
             for (int i = 0; i < sqlParams.size(); i++) {
                 parms[i] = sqlParams.get(i);
             }
-            command = String.format(command, parms);
+            command = String.format(command, (Object) parms);
         } catch (Throwable e) {
 
             command = sql;
-            // logger.error("PreparedStatement buildSql error: " + e.getMessage() + "----" + sqlParams.toString()+"---"+sql);
         }
 
-        // MbappeLogger.log("PreparedStatement buildSql end: " + command);
         return command;
     }
 
@@ -139,8 +136,8 @@ public class JdbcLoggerModule implements Module, LoadCompleted {
         Properties properties = null;
         String url = "";
         try {
-            properties = invokeMethod(connection, "getProperties", null);
-            url = invokeMethod(connection, "getURL", null);
+            properties = invokeMethod(connection, "getProperties", (Object) null);
+            url = invokeMethod(connection, "getURL", (Object) null);
         } catch (NoSuchMethodException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -151,8 +148,8 @@ public class JdbcLoggerModule implements Module, LoadCompleted {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        dbInfo.setmUserName((String) properties.get("user"));
-        dbInfo.setmPwd((String) properties.get("password"));
+        dbInfo.setmUserName((String) (properties != null ? properties.get("user") : null));
+        dbInfo.setmPwd((String) (properties != null ? properties.get("password") : null));
         // 解析url
 
         String host = url.substring(url.indexOf("//") + 2, url.lastIndexOf(":"));
@@ -196,13 +193,8 @@ public class JdbcLoggerModule implements Module, LoadCompleted {
             // 定义正则表达式
             String regex = "^([1-9]|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])(\\.(\\d|[1-9]\\d|1\\d{2}|2[0-4]\\d|25[0-5])){3}$";
             // 判断ip地址是否与正则表达式匹配
-            if (str.matches(regex)) {
-                // 返回判断信息
-                return true;
-            } else {
-                // 返回判断信息
-                return false;
-            }
+            // 返回判断信息
+            return str.matches(regex);
         }
         return false;
     }

@@ -2,5 +2,5 @@ package filter;
 
 public interface Filter {
 
-    public boolean doFilter(String className);
+    public boolean match(String className);
 }

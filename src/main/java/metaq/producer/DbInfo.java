@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 public class DbInfo implements Serializable {
 
-    private static final long serialVersionUID = 209689902099829394L;
-
     private String mHost;
     private String mPort;
     private String mUserName;

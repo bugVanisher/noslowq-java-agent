@@ -1,6 +1,6 @@
 package utils;
 
-import filter.PandoraTraceFilter;
+import filter.CommonFilter;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -9,21 +9,18 @@ import java.util.List;
 
 /**
  * 获取调用栈
- * 
- * @author
- *
  */
 public class TraceHelper {
 
     private static Method getStackTraceElement;
     private static Method getStackTraceDepth;
-    private static int DEPTH=20;
-    private static filter.Filter pandorafiFilter=new PandoraTraceFilter();
+    private static int DEPTH = 20;
+    private static filter.Filter commonFilter = new CommonFilter();
 
     static {
         try {
             getStackTraceElement = Throwable.class.getDeclaredMethod("getStackTraceElement",
-                int.class);
+                    int.class);
             getStackTraceElement.setAccessible(true);
 
             getStackTraceDepth = Throwable.class.getDeclaredMethod("getStackTraceDepth");
@@ -38,28 +35,27 @@ public class TraceHelper {
 
         try {
             Throwable throwable = new Throwable();
-            int depth = (Integer)getStackTraceDepth.invoke(throwable);
-        
+            int depth = (Integer) getStackTraceDepth.invoke(throwable);
+
             String placeholder = "";
-          
-            List<StackTraceElement> elements=new ArrayList<StackTraceElement>();
-            for (int i = depth-1 ; i >= 0; i--) {               
-                StackTraceElement element = (StackTraceElement)getStackTraceElement.invoke(throwable, i);
-                String clsName=element.getClassName();
-                if (!pandorafiFilter.doFilter(clsName)) {
+
+            List<StackTraceElement> elements = new ArrayList<StackTraceElement>();
+            for (int i = depth - 1; i >= 0; i--) {
+                StackTraceElement element = (StackTraceElement) getStackTraceElement.invoke(throwable, i);
+                String clsName = element.getClassName();
+                if (!commonFilter.match(clsName)) {
                     elements.add(element);
-                } 
+                }
             }
- 
+
             StringBuilder builder = new StringBuilder();
-          
-            for (int i =0; i <  elements.size(); i++) {        
-                StackTraceElement element=elements.get(i);
+
+            for (StackTraceElement element : elements) {
                 String trace = String.format("%s%s.%s(%s:%s)", placeholder, element.getClassName(), element.getMethodName(), element.getFileName(), element.getLineNumber());
                 placeholder += " ";
                 builder.append(trace);
                 builder.append("\r\n");
-     
+
             }
             return builder.toString();
 
@@ -69,7 +65,4 @@ public class TraceHelper {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println(TraceHelper.getTrace());
-    }
 }

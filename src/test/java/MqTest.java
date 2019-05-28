@@ -9,12 +9,13 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.client.exception.MQClientException;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.junit.Test;
+import utils.TraceHelper;
 
 import java.nio.charset.Charset;
 import java.util.List;
 
 /**
- * @author: gannicus at 2019/1/26
+ * @author : gannicus at 2019/1/26
  */
 public class MqTest {
 
@@ -24,14 +25,21 @@ public class MqTest {
     public void testProduce() {
         SqlDto sqlDto = new SqlDto();
         sqlDto.setAppId(1);
-        sqlDto.setAppName("mbappe");
+        sqlDto.setAppName("agent-test");
         sqlDto.setCostedTime(23L);
         DbInfo dbInfo = new DbInfo();
+        dbInfo.setmHost("127.0.0.1");
+        dbInfo.setmPort("3306");
+        dbInfo.setDb("mbappe_github");
+        dbInfo.setmUserName("gannicus");
+        dbInfo.setmPwd("123456");
         sqlDto.setDbInfo(dbInfo);
         sqlDto.setLabel("docker");
-        sqlDto.setOriginalSql("select * from account");
-        sqlDto.setSql("select * from account");
-        sqlDto.setTrace("");
+        sqlDto.setOriginalSql("select * from new_sqls_explain;");
+        sqlDto.setSql("select * from new_sqls_explain;");
+        sqlDto.setTrace(TraceHelper.getTrace());
+        sqlDto.setCreatedTime(System.currentTimeMillis());
+        sqlDto.setCostedTime(21L);
         SqlProducer.get().send(sqlDto);
     }
 

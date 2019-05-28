@@ -6,152 +6,132 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateUtil
-{
+public class DateUtil {
 
-    /** 一天的秒数 */
+    /**
+     * 一天的秒数
+     */
     public static final int DAY_SECOND = 86400;
 
-    public static String getFormatDate(Date date, String format)
-    {
+    public static String getFormatDate(Date date, String format) {
         SimpleDateFormat sdf = new SimpleDateFormat(format);
         return sdf.format(date);
     }
 
-    public static String getCurrectData()
-    {
+    public static String getCurrectData() {
         return getFormatDate(new Date(), "yyyy-MM-dd HH:mm:ss");
     }
 
-    public static String getCurrectDay()
-    {
+    public static String getCurrectDay() {
         return getFormatDate(new Date(), "yyyy-MM-dd");
     }
 
-    public static String getFormatDate(Date date)
-    {
+    public static String getFormatDate(Date date) {
         return getFormatDate(date, "yyyy-MM-dd HH:mm:ss");
     }
 
-    public static int currentSecond()
-    {
+    public static int currentSecond() {
         return Long.valueOf(System.currentTimeMillis() / 1000).intValue();
     }
 
-    public static int getDateSecond(Date date){
+    public static int getDateSecond(Date date) {
         return Long.valueOf((date.getTime() / 1000)).intValue();
     }
 
-    public static String formatDate(Integer unixSecond)
-    {
+    public static String formatDate(Integer unixSecond) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
-        if (unixSecond != null)
-        {
+        if (unixSecond != null) {
             date.setTime(unixSecond.longValue() * 1000L);
         }
         return sdf.format(date);
     }
 
-    public static Date formatInt2Date(Integer unixSecond)
-    {
+    public static Date formatInt2Date(Integer unixSecond) {
         Date date = new Date();
-        if (unixSecond != null)
-        {
+        if (unixSecond != null) {
             date.setTime(unixSecond.longValue() * 1000L);
         }
         return date;
     }
 
     /**
-     * @desc 字符串 yyyy-MM-dd hh:mm:ss 转换为 integer类型的时间戳
      * @param str
+     * @desc 字符串 yyyy-MM-dd hh:mm:ss 转换为 integer类型的时间戳
      * @returnSimpleDateFormat
      */
-    public static Integer string2Timestamp(String str)
-    {
+    public static Integer string2Timestamp(String str) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try
-        {
+        try {
             Date date = format.parse(str);
             Long dt = date.getTime() / 1000;
             return Integer.parseInt(dt.toString());
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
         return null;
     }
 
     /**
-     * @author yukai 20150521
      * @param str
      * @return
+     * @author yukai 20150521
      */
-    public static Integer hourMinuteString2Timestamp(String str){
-    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        try
-        {
+    public static Integer hourMinuteString2Timestamp(String str) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        try {
             Date date = format.parse(str);
             Long dt = date.getTime() / 1000;
             return Integer.parseInt(dt.toString());
-        } catch (Exception e){
-        	
+        } catch (Exception e) {
+
         }
         return null;
     }
 
     /**
-     * @desc 字符串 hh:mm 转换为 当天integer类型的时间戳
      * @param str
+     * @desc 字符串 hh:mm 转换为 当天integer类型的时间戳
      * @returnSimpleDateFormat
      */
-    public static Integer stringHourMinu2Timestamp(String str)
-    {
-    	String today = getFormatDate(new Date(), "yyyy-MM-dd");
-    	String todayHourMinu = today + " " + str + ":00";
+    public static Integer stringHourMinu2Timestamp(String str) {
+        String today = getFormatDate(new Date(), "yyyy-MM-dd");
+        String todayHourMinu = today + " " + str + ":00";
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try
-        {
+        try {
             Date date = format.parse(todayHourMinu);
             Long dt = date.getTime() / 1000;
             return Integer.parseInt(dt.toString());
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
         }
         return null;
     }
 
     /**
-     * @desc 字符串 yyyy-MM-dd hh 转换为 integer类型的时间戳
      * @param str
+     * @desc 字符串 yyyy-MM-dd hh 转换为 integer类型的时间戳
      * @returnSimpleDateFormat
      */
-    public static Integer hourString2Timestamp(String str)
-    {
+    public static Integer hourString2Timestamp(String str) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH");
-        try
-        {
+        try {
             Date date = format.parse(str);
             Long dt = date.getTime() / 1000;
             return Integer.parseInt(dt.toString());
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
         return null;
     }
 
     /**
-     *
      * 获取当前天long值
      *
-     * @author liuyi 2013-4-8
      * @return
      * @throws ParseException
+     * @author liuyi 2013-4-8
      */
-    public static Integer getCurrentDay()
-    {
+    public static Integer getCurrentDay() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
         Calendar cd = Calendar.getInstance();
         String strCurrentDay = sdf.format(cd.getTime());
@@ -162,15 +142,13 @@ public class DateUtil
     }
 
     /**
-     *
      * 获取第二天凌晨时间
      *
-     * @author liuyi 2013-7-8
      * @return
      * @throws ParseException
+     * @author liuyi 2013-7-8
      */
-    public static Integer getCurrentNextDay() throws ParseException
-    {
+    public static Integer getCurrentNextDay() throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd 00:00:00");
         Calendar cd = Calendar.getInstance();
         cd.setTime(cd.getTime());
@@ -187,72 +165,63 @@ public class DateUtil
      * @return
      * @author zhangyixin 2013-8-22
      */
-    public static String getCurrentTimeStamp()
-    {
+    public static String getCurrentTimeStamp() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmssSSS");
         Calendar calendar = Calendar.getInstance();
         return sdf.format(calendar.getTime());
     }
 
-	/**
-	 * 获取当前的时间戳，格式为yyyyMMddhhmmss
-	 * @return
-	 * @author zhangyixin 2014-3-26
-	 */
-	public static String getCurrentTimeStampNoMill(){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
-		Calendar calendar = Calendar.getInstance();
-		return sdf.format(calendar.getTime());
-	}
+    /**
+     * 获取当前的时间戳，格式为yyyyMMddhhmmss
+     *
+     * @return
+     * @author zhangyixin 2014-3-26
+     */
+    public static String getCurrentTimeStampNoMill() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddhhmmss");
+        Calendar calendar = Calendar.getInstance();
+        return sdf.format(calendar.getTime());
+    }
 
     /**
-     * @desc 字符串 yyyy-MM-dd hh 转换为 integer类型的时间戳
      * @param str
      * @return
+     * @desc 字符串 yyyy-MM-dd hh 转换为 integer类型的时间戳
      */
-    public static Integer stringHour2Timestamp(String str)
-    {
+    public static Integer stringHour2Timestamp(String str) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH");
-        try
-        {
+        try {
             Date date = format.parse(str);
             Long dt = date.getTime() / 1000;
             return Integer.parseInt(dt.toString());
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
         return null;
     }
 
-    public static Integer stringMonth2Timestamp(String str)
-    {
+    public static Integer stringMonth2Timestamp(String str) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM");
-        try
-        {
+        try {
             Date date = format.parse(str);
             Long dt = date.getTime() / 1000;
             return Integer.parseInt(dt.toString());
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
         return null;
     }
 
     /**
-     *
-     * @desc 时间戳转换为时间字符串
      * @param timestamp
      * @return
+     * @desc 时间戳转换为时间字符串
      */
-    public static String timestamp2String(Integer timestamp)
-    {
-        
+    public static String timestamp2String(Integer timestamp) {
+
 
         Date date = new Date();
-        if (timestamp != null)
-        {
+        if (timestamp != null) {
             date.setTime(timestamp.longValue() * 1000L);
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -261,27 +230,23 @@ public class DateUtil
     }
 
     /**
-    *
-    * @desc 时间戳转换为时间字符串
-    * @param timestamp
-    * @return
-    */
-   public static String timestamp2String(long timestamp)
-   {
+     * @param timestamp
+     * @return
+     * @desc 时间戳转换为时间字符串
+     */
+    public static String timestamp2String(long timestamp) {
 
 
-       Date date = new Date(timestamp);
-       SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-       String dateStr = format.format(date);
-       return dateStr;
-   }
+        Date date = new Date(timestamp);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String dateStr = format.format(date);
+        return dateStr;
+    }
 
-    public static String formatTimeStamp(Integer timestamp, String formatStr)
-    {
+    public static String formatTimeStamp(Integer timestamp, String formatStr) {
 
         Date date = new Date();
-        if (timestamp != null)
-        {
+        if (timestamp != null) {
             date.setTime(timestamp.longValue() * 1000L);
         }
         SimpleDateFormat format = new SimpleDateFormat(formatStr);
@@ -289,8 +254,7 @@ public class DateUtil
         return dateStr;
     }
 
-    public static boolean isNowYear(Integer timestamp)
-    {
+    public static boolean isNowYear(Integer timestamp) {
         Integer year = Calendar.getInstance().get(Calendar.YEAR);
         return timestamp2String(timestamp).startsWith(year.toString());
     }
@@ -301,8 +265,7 @@ public class DateUtil
      * @param str
      * @return
      */
-    public static Integer nextMonth(String str)
-    {
+    public static Integer nextMonth(String str) {
 
         Integer current = stringMonth2Timestamp(str);
         Calendar cal = Calendar.getInstance();
@@ -312,31 +275,25 @@ public class DateUtil
         return Integer.valueOf(nextMonth.toString());
     }
 
-    public static Integer getYear()
-    {
+    public static Integer getYear() {
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.YEAR);
     }
 
-    public static Integer getMonth()
-    {
+    public static Integer getMonth() {
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.MONTH) + 1;
     }
 
-    public static Integer getDay()
-    {
+    public static Integer getDay() {
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.DATE);
     }
 
-    public static Integer getHour()
-    {
+    public static Integer getHour() {
         Calendar cal = Calendar.getInstance();
         return cal.get(Calendar.HOUR_OF_DAY);
     }
-
-
 
 
     /**
@@ -345,16 +302,14 @@ public class DateUtil
      * @param year
      * @return
      */
-    public static boolean checkIsLeapYear(int year)
-    {
+    public static boolean checkIsLeapYear(int year) {
         return (year % 4 == 0) && ((year % 100 != 0) | (year % 400 == 0));
     }
 
     /**
      * 判断是否为闰年
      */
-    public static boolean checkIsLeapYear()
-    {
+    public static boolean checkIsLeapYear() {
         return checkIsLeapYear(DateUtil.getYear());
     }
 
@@ -364,8 +319,7 @@ public class DateUtil
      * @return
      * @author zhangyixin 2013-11-22
      */
-    public static Integer getLastMonthNum()
-    {
+    public static Integer getLastMonthNum() {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.MONTH, -1);
         SimpleDateFormat format = new SimpleDateFormat("yyyyMM");
@@ -379,8 +333,7 @@ public class DateUtil
      * @return
      * @author zhangyixin 2013-11-26
      */
-    public static Integer getLastMonthNum(Integer interval)
-    {
+    public static Integer getLastMonthNum(Integer interval) {
         validateYearMonthInterval(interval);
         int year = getYearInInterval(interval);
         int month = getMonthInInterval(interval);
@@ -394,13 +347,11 @@ public class DateUtil
     /**
      * 获取该区间的第一秒
      *
-     * @param interval
-     *            yyyyMM(201311)
+     * @param interval yyyyMM(201311)
      * @return
      * @author zhangyixin 2013-11-22
      */
-    public static Integer getFirstSecondInInterval(Integer interval)
-    {
+    public static Integer getFirstSecondInInterval(Integer interval) {
         validateYearMonthInterval(interval);
         int year = getYearInInterval(interval);
         int month = getMonthInInterval(interval);
@@ -418,8 +369,7 @@ public class DateUtil
      * @return
      * @author zhangyixin 2013-11-22
      */
-    public static Integer getLastSecondInInterval(Integer interval)
-    {
+    public static Integer getLastSecondInInterval(Integer interval) {
         validateYearMonthInterval(interval);
         int year = getYearInInterval(interval);
         int month = getMonthInInterval(interval);
@@ -432,100 +382,92 @@ public class DateUtil
         return convertMillisToUnixTime(calendar.getTimeInMillis());
     }
 
-    private static void validateYearMonthInterval(Integer interval)
-    {
-        if (interval == null || interval == 0)
-        {
+    private static void validateYearMonthInterval(Integer interval) {
+        if (interval == null || interval == 0) {
             throw new IllegalArgumentException("Interval is null or 0.");
         }
-        if (interval % 100 > 12 || interval % 100 < 1)
-        {
+        if (interval % 100 > 12 || interval % 100 < 1) {
             throw new IllegalArgumentException("Interval month part is not in [1, 12].");
         }
-        if (interval / 100 <= 0)
-        {
+        if (interval / 100 <= 0) {
             throw new IllegalArgumentException("Interval year part is missing.");
         }
     }
 
-    private static int getYearInInterval(Integer interval)
-    {
+    private static int getYearInInterval(Integer interval) {
         return interval / 100;
     }
 
-    private static int getMonthInInterval(Integer interval)
-    {
+    private static int getMonthInInterval(Integer interval) {
         return interval % 100;
     }
 
-    private static Integer convertMillisToUnixTime(Long millis)
-    {
-        if (millis == null)
-        {
+    private static Integer convertMillisToUnixTime(Long millis) {
+        if (millis == null) {
             return null;
         }
         return Long.valueOf((millis / 1000)).intValue();
     }
 
-	/**
-	 * 转换Date到UnixtTime
-	 *
-	 * @param date
-	 * @return
-	 * @author zhangyixin 2013-11-26
-	 */
-	public static Integer convertDateToUnixTime(Date date) {
-		if (date == null) {
-			return null;
-		}
-		return Long.valueOf(date.getTime() / 1000).intValue();
-	}
+    /**
+     * 转换Date到UnixtTime
+     *
+     * @param date
+     * @return
+     * @author zhangyixin 2013-11-26
+     */
+    public static Integer convertDateToUnixTime(Date date) {
+        if (date == null) {
+            return null;
+        }
+        return Long.valueOf(date.getTime() / 1000).intValue();
+    }
 
-	/**
-	 * 获取昨天的第一秒
-	 *
-	 * @return
-	 * @author zhangyixin 2014-1-18
-	 */
-	public static Integer getYesterdayBegin(){
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, -1);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		return convertMillisToUnixTime(calendar.getTimeInMillis());
-	}
+    /**
+     * 获取昨天的第一秒
+     *
+     * @return
+     * @author zhangyixin 2014-1-18
+     */
+    public static Integer getYesterdayBegin() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return convertMillisToUnixTime(calendar.getTimeInMillis());
+    }
 
-	/**
-	 * 获取昨天的最后一秒
-	 *
-	 * @return
-	 * @author zhangyixin 2014-1-18
-	 */
-	public static Integer getYesterDayEnd(){
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, -1);
-		calendar.set(Calendar.HOUR_OF_DAY, 23);
-		calendar.set(Calendar.MINUTE, 59);
-		calendar.set(Calendar.SECOND, 59);
-		return convertMillisToUnixTime(calendar.getTimeInMillis());
-	}
+    /**
+     * 获取昨天的最后一秒
+     *
+     * @return
+     * @author zhangyixin 2014-1-18
+     */
+    public static Integer getYesterDayEnd() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1);
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        return convertMillisToUnixTime(calendar.getTimeInMillis());
+    }
 
-	/**
-	 * 获取昨天日期:yyyy-MM-dd
-	 *
-	 * @return
-	 * @author zhangyixin 2014-1-18
-	 */
-	public static String getYesterdayString(){
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, -1);
-		return sdf.format(calendar.getTime());
-	}
+    /**
+     * 获取昨天日期:yyyy-MM-dd
+     *
+     * @return
+     * @author zhangyixin 2014-1-18
+     */
+    public static String getYesterdayString() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, -1);
+        return sdf.format(calendar.getTime());
+    }
 
 	/*public static void main(String[] args) {
-		// 1365436800
+        // 1365436800
 		System.out.println("2014-01-13 00:00:00:"
 				+ DateUtil.string2Timestamp("2014-01-16 19:30:00"));
 		System.out.println("2014-01-30 00:00:00:"
@@ -545,115 +487,124 @@ public class DateUtil
 				- DateUtil.string2Timestamp("2013-07-22 00:00:00"));
 	}*/
 
-	/**
-	 * 取得当前月的第1天的第1秒
-	 * @return
-	 * @author zhengqb
-	 */
-	public static Integer getCurrentMonthBegin() {
-		return  getMonthBegin(0);
-	}
+    /**
+     * 取得当前月的第1天的第1秒
+     *
+     * @return
+     * @author zhengqb
+     */
+    public static Integer getCurrentMonthBegin() {
+        return getMonthBegin(0);
+    }
 
-	/**
-	 * 取得当某个月的第1天的第1秒，以当前月为标准，add=0就表示取得当个月的第1天第1秒
-	 * @param add
-	 * @return
-	 * @author zhengqb
-	 */
-	public static Integer getMonthBegin(int amount) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.DAY_OF_MONTH, 1);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.add(Calendar.MONTH, amount);
-		return convertMillisToUnixTime(calendar.getTimeInMillis());
-	}
-	public static Integer getMonthBegin(Date date) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		calendar.set(Calendar.DAY_OF_MONTH, 1);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		return convertMillisToUnixTime(calendar.getTimeInMillis());
-	}
-	/**
-	 * 取得某个日期的月份的最后一秒（比如那个月份只有30天，就返回30号23时59分59秒）
-	 * @param date
-	 * @return
-	 * @author zhengqb
-	 */
-	public static Integer getMonthEnd(Date date) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		calendar.add(Calendar.MONTH, 1);
-		calendar.set(Calendar.DAY_OF_MONTH, 1);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		return convertMillisToUnixTime(calendar.getTimeInMillis())-1;
-	}
-	/**
-	 * @param amount
-	 * @return
-	 * @author zhengqb
-	 */
-	public static Integer getDayBegin(int amount) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, amount);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		return convertMillisToUnixTime(calendar.getTimeInMillis());
-	}
-	/**
-	 *
-	 * @param date
-	 * @return
-	 * @author zhengqb
-	 */
-	public static Integer getDayBegin(Date date) {
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
-		calendar.set(Calendar.HOUR_OF_DAY, 0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		return convertMillisToUnixTime(calendar.getTimeInMillis());
-	}
-	/**
-	 * 判断给出的时间是不是当前月
-	 * @param time
-	 * @return
-	 * @author zhengqb
-	 */
-	public static boolean isNowMonth(Integer time) {
-		Calendar calendar = Calendar.getInstance();
-		Integer nowMonth = calendar.get(Calendar.MONTH);
-		Integer newYear = calendar.get(Calendar.YEAR);
-		calendar.setTimeInMillis(time*1000L);
-		return nowMonth.equals(calendar.get(Calendar.MONTH))
-				&& newYear.equals(calendar.get(Calendar.YEAR));
-	}
+    /**
+     * 取得当某个月的第1天的第1秒，以当前月为标准，add=0就表示取得当个月的第1天第1秒
+     *
+     * @param add
+     * @return
+     * @author zhengqb
+     */
+    public static Integer getMonthBegin(int amount) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.add(Calendar.MONTH, amount);
+        return convertMillisToUnixTime(calendar.getTimeInMillis());
+    }
 
-	public static String currentDay(){
-		return DateUtil.getFormatDate(new Date(), "yyyy-MM-dd");
-	}
+    public static Integer getMonthBegin(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return convertMillisToUnixTime(calendar.getTimeInMillis());
+    }
 
-	/**
-	 * 获取相隔时间日期str:
-	 * @param delta
-	 * @param dateFormat , default : "yyyy-MM-dd"
-	 * @return
-	 */
-	public static String getDeltaDayString(int delta ,  String dateFormat){
-	
-			dateFormat = "yyyy-MM-dd";
-		SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DATE, delta);
-		return sdf.format(calendar.getTime());
-	}
+    /**
+     * 取得某个日期的月份的最后一秒（比如那个月份只有30天，就返回30号23时59分59秒）
+     *
+     * @param date
+     * @return
+     * @author zhengqb
+     */
+    public static Integer getMonthEnd(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.MONTH, 1);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return convertMillisToUnixTime(calendar.getTimeInMillis()) - 1;
+    }
+
+    /**
+     * @param amount
+     * @return
+     * @author zhengqb
+     */
+    public static Integer getDayBegin(int amount) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, amount);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return convertMillisToUnixTime(calendar.getTimeInMillis());
+    }
+
+    /**
+     * @param date
+     * @return
+     * @author zhengqb
+     */
+    public static Integer getDayBegin(Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        return convertMillisToUnixTime(calendar.getTimeInMillis());
+    }
+
+    /**
+     * 判断给出的时间是不是当前月
+     *
+     * @param time
+     * @return
+     * @author zhengqb
+     */
+    public static boolean isNowMonth(Integer time) {
+        Calendar calendar = Calendar.getInstance();
+        Integer nowMonth = calendar.get(Calendar.MONTH);
+        Integer newYear = calendar.get(Calendar.YEAR);
+        calendar.setTimeInMillis(time * 1000L);
+        return nowMonth.equals(calendar.get(Calendar.MONTH))
+                && newYear.equals(calendar.get(Calendar.YEAR));
+    }
+
+    public static String currentDay() {
+        return DateUtil.getFormatDate(new Date(), "yyyy-MM-dd");
+    }
+
+    /**
+     * 获取相隔时间日期str:
+     *
+     * @param delta
+     * @param dateFormat , default : "yyyy-MM-dd"
+     * @return
+     */
+    public static String getDeltaDayString(int delta, String dateFormat) {
+
+        dateFormat = "yyyy-MM-dd";
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DATE, delta);
+        return sdf.format(calendar.getTime());
+    }
 
     public static Integer getHourInterval(int interval) {
         Calendar c = Calendar.getInstance();
@@ -662,15 +613,13 @@ public class DateUtil
     }
 
 
-
-
-	/**
-	 * @author yukai
-	 * 	等同于getTheDayBegin(null, 0)
-	 * @return
-	 */
-	public static Date getCurrentDayBegin(){
-		Long timeInMills = 0L;
+    /**
+     * @return
+     * @author yukai
+     * 等同于getTheDayBegin(null, 0)
+     */
+    public static Date getCurrentDayBegin() {
+        Long timeInMills = 0L;
         try {
             Calendar start = Calendar.getInstance();
             start.set(Calendar.HOUR_OF_DAY, 0);
@@ -682,15 +631,15 @@ public class DateUtil
         }
         Date date = new Date(timeInMills);
         return date;
-	}
+    }
 
-	/**
-	 * @author yukai
-	 * 	等同于getTheDayEnd(null, 0)
-	 * @return
-	 */
-	public static Date getCurrentDayEnd(){
-		Long timeInMills = 0L;
+    /**
+     * @return
+     * @author yukai
+     * 等同于getTheDayEnd(null, 0)
+     */
+    public static Date getCurrentDayEnd() {
+        Long timeInMills = 0L;
         try {
             Calendar start = Calendar.getInstance();
             start.set(Calendar.HOUR_OF_DAY, 23);
@@ -702,16 +651,16 @@ public class DateUtil
         }
         Date date = new Date(timeInMills);
         return date;
-	}
+    }
 
-	/**
-	 * @author yukai
-	 * 	等同于getTheDayBegin(theDate, 0)
-	 * @param theDate
-	 * @return
-	 */
-	public static Date getTheDayBegin(Date theDate){
-		Long timeInMills = 0L;
+    /**
+     * @param theDate
+     * @return
+     * @author yukai
+     * 等同于getTheDayBegin(theDate, 0)
+     */
+    public static Date getTheDayBegin(Date theDate) {
+        Long timeInMills = 0L;
         try {
             Calendar start = Calendar.getInstance();
             start.setTime(theDate);
@@ -724,20 +673,20 @@ public class DateUtil
         }
         Date date = new Date(timeInMills);
         return date;
-	}
+    }
 
-	/**
-	 * @author yukai
-	 * @param theDate
-	 * @param pos
-	 * @return
-	 */
-	public static Date getTheDayBegin(Date theDate, int pos){
-		Long timeInMills = 0L;
+    /**
+     * @param theDate
+     * @param pos
+     * @return
+     * @author yukai
+     */
+    public static Date getTheDayBegin(Date theDate, int pos) {
+        Long timeInMills = 0L;
         try {
             Calendar start = Calendar.getInstance();
-            if(null != theDate){
-            	start.setTime(theDate);
+            if (null != theDate) {
+                start.setTime(theDate);
             }
             start.add(Calendar.DAY_OF_MONTH, pos);
             start.set(Calendar.HOUR_OF_DAY, 0);
@@ -749,19 +698,19 @@ public class DateUtil
         }
         Date date = new Date(timeInMills);
         return date;
-	}
+    }
 
-	/**
-	 * @author yukai
-	 * @param theDate
-	 * @return
-	 */
-	public static Date getTheDayEnd(Date theDate, int pos){
-		Long timeInMills = 0L;
+    /**
+     * @param theDate
+     * @return
+     * @author yukai
+     */
+    public static Date getTheDayEnd(Date theDate, int pos) {
+        Long timeInMills = 0L;
         try {
             Calendar start = Calendar.getInstance();
-            if(null != theDate){
-            	start.setTime(theDate);
+            if (null != theDate) {
+                start.setTime(theDate);
             }
             start.add(Calendar.DAY_OF_MONTH, pos);
             start.set(Calendar.HOUR_OF_DAY, 23);
@@ -773,30 +722,24 @@ public class DateUtil
         }
         Date date = new Date(timeInMills);
         return date;
-	}
+    }
 
 
     /**
-     * @desc 字符串 yyyy-MM-dd 转换为 integer类型的时间戳
      * @param str
+     * @desc 字符串 yyyy-MM-dd 转换为 integer类型的时间戳
      * @returnSimpleDateFormat
      */
-    public static Integer dateString2Timestamp(String str)
-    {
+    public static Integer dateString2Timestamp(String str) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        try
-        {
+        try {
             Date date = format.parse(str);
             Long dt = date.getTime() / 1000;
             return Integer.parseInt(dt.toString());
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
 
         }
         return null;
     }
 
-    public static void main(String[] args) {
-        System.out.println("xxx: "+DateUtil.getCurrectData());
-    }
 }

@@ -3,23 +3,16 @@ package metaq.producer;
 import java.io.Serializable;
 
 /**
- * 采集慢查询信息
- * @author jun7.lj7
- *
+ * Sql信息
  */
 public class SqlDto implements Serializable {
-
-    
-    private static final long serialVersionUID = 7832157771469590728L;
 
     // 执行sql
     private String sql;
     //未解析
     private String originalSql; 
-
-    // uae应用id
+    // 应用id
     private Integer appId;   
-
     //应用
     private String appName;
     //标签环境

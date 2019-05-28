@@ -9,7 +9,7 @@ import org.apache.rocketmq.common.message.Message;
 
 public class SqlProducer {
 
-    public static final String TOPIC = "MBAPPE";
+    private static final String TOPIC = "MBAPPE";
 
     private static volatile SqlProducer producer = null;
 
@@ -61,7 +61,7 @@ public class SqlProducer {
         }
     }
 
-    public void destory() {
+    private void destory() {
 
         if (metaProducer != null) {
             metaProducer.shutdown();
