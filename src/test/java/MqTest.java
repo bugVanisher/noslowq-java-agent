@@ -30,13 +30,13 @@ public class MqTest {
         DbInfo dbInfo = new DbInfo();
         dbInfo.setmHost("127.0.0.1");
         dbInfo.setmPort("3306");
-        dbInfo.setDb("mbappe_github");
+        dbInfo.setDb("mbappe");
         dbInfo.setmUserName("gannicus");
         dbInfo.setmPwd("123456");
         sqlDto.setDbInfo(dbInfo);
         sqlDto.setLabel("docker");
-        sqlDto.setOriginalSql("select * from new_sqls_explain;");
-        sqlDto.setSql("select * from new_sqls_explain;");
+        sqlDto.setOriginalSql("select * from new_sql_explain;");
+        sqlDto.setSql("select * from new_sql_explain;");
         sqlDto.setTrace(TraceHelper.getTrace());
         sqlDto.setCreatedTime(System.currentTimeMillis());
         sqlDto.setCostedTime(21L);

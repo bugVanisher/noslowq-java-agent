@@ -4,6 +4,7 @@
 
 ## Build Setup
 
+##### step 1
 ```bash
 # Clone project
 git clone git@github.com:gannicus-yu/newsql-agent.git
@@ -15,7 +16,8 @@ mvn assemly:assemly
 ls /target/newsql-agent-${version}-SNAPSHOT.jar
 
 ```
-
+##### step 2
+因为执行SQL被组装成了一个异步消息，如果没有部署rocketmq,请自行安装部署消息中间件[mq](http://rocketmq.apache.org/docs/quick-start/),得到地址 ${namesever地址}
 
 ## Run
 

@@ -349,7 +349,6 @@ public class DateUtil {
      *
      * @param interval yyyyMM(201311)
      * @return
-     * @author zhangyixin 2013-11-22
      */
     public static Integer getFirstSecondInInterval(Integer interval) {
         validateYearMonthInterval(interval);
@@ -367,7 +366,6 @@ public class DateUtil {
      * 获取上个月最后一秒
      *
      * @return
-     * @author zhangyixin 2013-11-22
      */
     public static Integer getLastSecondInInterval(Integer interval) {
         validateYearMonthInterval(interval);
@@ -414,7 +412,6 @@ public class DateUtil {
      *
      * @param date
      * @return
-     * @author zhangyixin 2013-11-26
      */
     public static Integer convertDateToUnixTime(Date date) {
         if (date == null) {
@@ -427,7 +424,6 @@ public class DateUtil {
      * 获取昨天的第一秒
      *
      * @return
-     * @author zhangyixin 2014-1-18
      */
     public static Integer getYesterdayBegin() {
         Calendar calendar = Calendar.getInstance();
@@ -442,7 +438,6 @@ public class DateUtil {
      * 获取昨天的最后一秒
      *
      * @return
-     * @author zhangyixin 2014-1-18
      */
     public static Integer getYesterDayEnd() {
         Calendar calendar = Calendar.getInstance();
@@ -457,7 +452,6 @@ public class DateUtil {
      * 获取昨天日期:yyyy-MM-dd
      *
      * @return
-     * @author zhangyixin 2014-1-18
      */
     public static String getYesterdayString() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -466,32 +460,11 @@ public class DateUtil {
         return sdf.format(calendar.getTime());
     }
 
-	/*public static void main(String[] args) {
-        // 1365436800
-		System.out.println("2014-01-13 00:00:00:"
-				+ DateUtil.string2Timestamp("2014-01-16 19:30:00"));
-		System.out.println("2014-01-30 00:00:00:"
-				+ DateUtil.string2Timestamp("2014-01-30 00:00:00"));
-		System.out.println("2014-02-01 00:00:00:"
-				+ DateUtil.string2Timestamp("2014-02-01 00:00:00"));
-		System.out.println("2014-02-04 00:00:00:"
-				+ DateUtil.string2Timestamp("2014-02-04 00:00:00"));
-		System.out.println("now:" + DateUtil.currentSecond());
-
-
-		System.out.println(DateUtil.formatDate(DateUtil
-				.string2Timestamp("2013-07-12 00:00:00")));
-		System.out.println("2013-07-22:"
-				+ DateUtil.string2Timestamp("2013-07-22 00:00:00"));
-		System.out.println(DateUtil.string2Timestamp("2013-07-23 00:10:03")
-				- DateUtil.string2Timestamp("2013-07-22 00:00:00"));
-	}*/
 
     /**
      * 取得当前月的第1天的第1秒
      *
      * @return
-     * @author zhengqb
      */
     public static Integer getCurrentMonthBegin() {
         return getMonthBegin(0);
@@ -502,7 +475,6 @@ public class DateUtil {
      *
      * @param add
      * @return
-     * @author zhengqb
      */
     public static Integer getMonthBegin(int amount) {
         Calendar calendar = Calendar.getInstance();
@@ -529,7 +501,6 @@ public class DateUtil {
      *
      * @param date
      * @return
-     * @author zhengqb
      */
     public static Integer getMonthEnd(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -545,7 +516,6 @@ public class DateUtil {
     /**
      * @param amount
      * @return
-     * @author zhengqb
      */
     public static Integer getDayBegin(int amount) {
         Calendar calendar = Calendar.getInstance();
@@ -559,7 +529,6 @@ public class DateUtil {
     /**
      * @param date
      * @return
-     * @author zhengqb
      */
     public static Integer getDayBegin(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -575,7 +544,6 @@ public class DateUtil {
      *
      * @param time
      * @return
-     * @author zhengqb
      */
     public static boolean isNowMonth(Integer time) {
         Calendar calendar = Calendar.getInstance();
@@ -635,7 +603,6 @@ public class DateUtil {
 
     /**
      * @return
-     * @author yukai
      * 等同于getTheDayEnd(null, 0)
      */
     public static Date getCurrentDayEnd() {
@@ -656,7 +623,6 @@ public class DateUtil {
     /**
      * @param theDate
      * @return
-     * @author yukai
      * 等同于getTheDayBegin(theDate, 0)
      */
     public static Date getTheDayBegin(Date theDate) {
@@ -679,7 +645,6 @@ public class DateUtil {
      * @param theDate
      * @param pos
      * @return
-     * @author yukai
      */
     public static Date getTheDayBegin(Date theDate, int pos) {
         Long timeInMills = 0L;
@@ -703,7 +668,6 @@ public class DateUtil {
     /**
      * @param theDate
      * @return
-     * @author yukai
      */
     public static Date getTheDayEnd(Date theDate, int pos) {
         Long timeInMills = 0L;
